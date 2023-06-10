@@ -19,6 +19,10 @@ app.use(express.json())
 app.use('/byapar/api/v1/',authenticate,router)
 app.use('/byapar/api/v1/user/',userrouter)
 
+app.get('/',(req,res)=>{
+    res.send('hi')
+})
+
 
 const start =async()=>{
     try{
