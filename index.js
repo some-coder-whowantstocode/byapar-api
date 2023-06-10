@@ -26,11 +26,12 @@ app.get('/',(req,res)=>{
 
 const start =async()=>{
     try{
-        await connect("mongodb+srv://byapar-api:ZlVwl275LvRZm1We@cluster7.5irzlix.mongodb.net/?retryWrites=true&w=majority")
+       await connect(url)
         app.listen(port,console.log(`App is listning at ${port}......`))
 
+
     }catch(error){
-        console.log(err)
+        console.log(error)
     }
 }
 
