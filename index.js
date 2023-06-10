@@ -16,7 +16,7 @@ const url = process.env.connecturl
 app.use(express.json())
 
 
-app.use('/byapar/api/v1/',authenticate,router)
+app.use('/byapar/api/v1/',router)
 app.use('/byapar/api/v1/user/',userrouter)
 
 app.get('/',(req,res)=>{
