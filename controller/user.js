@@ -50,7 +50,7 @@ const authcheck =async(req,res)=>{
    
         const payload = jwt.verify(toke,process.env.secretkey)
         console.log(process.env.secretkey)
-        req.status(200).json({userId:payload.id,name:payload.name})
+        res.status(200).json({userId:payload.id,name:payload.name})
  
 }
 
