@@ -36,7 +36,7 @@ const login = async(req,res)=>{
     res.status(200).json({msg:'successfully logged in',details:{user:user.name,token:token}})
 }
 
-const authcheck =async()=>{
+const authcheck =async(req,res)=>{
     const {token} = req.body
     if(!token || !token.startsWith('Bearer')){
         throw new Error('Authontication failed')
