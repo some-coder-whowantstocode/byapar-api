@@ -1,6 +1,7 @@
 const User = require('../model/usermodel')
 const {Badrequest} = require('../customerr/badrequest')
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 
 const register = async(req,res)=>{
@@ -45,8 +46,10 @@ const authcheck =async(req,res)=>{
 
 
     const toke = await token.split(' ')[1]
+    console.log(toke)
     try{
         const payload = jwt.verify(toke,process.env.secretkey)
+        console.log(secretkey)
         req.status(200).json({userId:payload.id,name:payload.name})
     }catch(error){
         throw new Badrequest('Authontication faild',401)
