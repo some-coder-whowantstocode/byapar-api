@@ -47,13 +47,11 @@ const authcheck =async(req,res)=>{
 
     const toke = await token.split(' ')[1]
     console.log(toke)
-    try{
+   
         const payload = jwt.verify(toke,process.env.secretkey)
-        console.log(secretkey)
+        console.log(process.env.secretkey)
         req.status(200).json({userId:payload.id,name:payload.name})
-    }catch(error){
-        throw new Badrequest('Authontication faild',401)
-    }
+ 
 }
 
 module.exports = {
