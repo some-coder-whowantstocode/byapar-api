@@ -12,7 +12,6 @@ const connect = require('./db/connect')
 
 
 const port = process.env.PORT || 3000
-const url = process.env.connecturl
 app.use(express.json())
 
 
@@ -24,7 +23,7 @@ app.get('/',(req,res)=>{
 })
 
 
-const start =async()=>{
+const start =async(url)=>{
     try{
        await connect(url)
         app.listen(port,console.log(`App is listning at ${port}......`))
@@ -37,4 +36,4 @@ const start =async()=>{
 
 app.use(errorhandler)
 
-start()
+start(process.env.connecturl)
