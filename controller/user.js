@@ -14,7 +14,7 @@ const register = async(req,res)=>{
         const box = {name,email,password}
         const user = await User.create(req.body)
         const token = await user.createtoken()
-        res.status(201).json({user:name,token:token})
+        res.status(201).json({details:{user:name,token:token}})
    
 }
 
