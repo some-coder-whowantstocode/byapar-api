@@ -43,7 +43,7 @@ const authcheck =async(req,res)=>{
     }
 
 
-    const toke = await authheader.split(' ')[1]
+    const toke = await token.split(' ')[1]
     try{
         const payload = jwt.verify(toke,process.env.secretkey)
         req.status(200).json({userId:payload.id,name:payload.name})
