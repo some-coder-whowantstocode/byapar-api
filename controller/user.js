@@ -24,7 +24,7 @@ const login = async(req,res)=>{
     }
     const user = await User.findOne({email})
     if(!user){
-       return res.status(200).json({msg:'User doesnot exist please register the user.'})
+    throw new Badrequest('User not found.',404)
     }
     const validpass = await user.iscorrect(password)
     if(!validpass){
