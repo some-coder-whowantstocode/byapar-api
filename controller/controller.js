@@ -3,8 +3,8 @@ const Products = require('../model/model')
 
 const createproduct = async(req,res)=>{
 
-   const {name,description,price} = req.body
-   if(!name || !description || !price){
+   const {name,description,price,image} = req.body
+   if(!name || !description || !price ||!image){
    throw new Badrequest('Please provide name,description and price of the item.',400)
    }
 

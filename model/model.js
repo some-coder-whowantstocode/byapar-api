@@ -19,6 +19,9 @@ const productschema = new mongoose.Schema({
     createdby:{
         type:String,
         required:[true,'looks like some error occured.']
+    },
+    image:{
+        type:String
     }
 })
 
