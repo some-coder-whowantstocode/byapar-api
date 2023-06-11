@@ -1,5 +1,7 @@
 const User = require('../model/usermodel')
 const {Badrequest} = require('../customerr/badrequest')
+const jwt = require('jsonwebtoken')
+
 
 const register = async(req,res)=>{
   
@@ -34,7 +36,24 @@ const login = async(req,res)=>{
     res.status(200).json({msg:'successfully logged in',details:{user:user.name,token:token}})
 }
 
+const authcheck =async()=>{
+    const {token} = req.body
+    if(!token || !token.startsWith('Bearer')){
+        throw new Error('Authontication failed')
+    }
+
+
+    const toke = await authheader.split(' ')[1]
+    try{
+        const payload = jwt.verify(toke,process.env.secretkey)
+        req.status(200).json({userId:payload.id,name:payload.name})
+    }catch(error){
+        throw new Badrequest('Authontication faild',401)
+    }
+}
+
 module.exports = {
     register,
-    login
+    login,
+    authcheck
 }
