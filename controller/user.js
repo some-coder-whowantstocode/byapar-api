@@ -38,6 +38,7 @@ const login = async(req,res)=>{
 
 const authcheck =async(req,res)=>{
     const {token} = req.body
+    console.log(token)
     if(!token || !token.startsWith('Bearer')){
         throw new Error('Authontication failed')
     }
