@@ -10,7 +10,7 @@ const errorhandler = require('./middleware/errhandler')
 const connect = require('./db/connect')
 
 app.use(cors({
-    origin: 'https://backend-9jms.onrender.com',
+    origin: process.env.baseurl,
     methods:["GET","POST","PATCH","DELETE"]
   }))
 
