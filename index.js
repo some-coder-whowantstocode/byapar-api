@@ -10,7 +10,7 @@ const errorhandler = require('./middleware/errhandler')
 const connect = require('./db/connect')
 
 app.use(cors({
-    origin:'https://teal-tough-beaver.cyclic.app/',
+    origin:'*',
     methods:["GET","POST","PATCH","DELETE"]
   }))
 
