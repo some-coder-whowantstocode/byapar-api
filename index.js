@@ -1,5 +1,5 @@
 require('express-async-errors')
-
+const cors = require('cors')
 const express = require('express')
 const app = express()
 const authenticate = require('./middleware/authentication')
@@ -9,7 +9,10 @@ const userrouter = require('./routes/userroute')
 const errorhandler = require('./middleware/errhandler')
 const connect = require('./db/connect')
 
-
+app.use(cors({
+    origin:'https://teal-tough-beaver.cyclic.app/',
+    methods:["GET","POST","PATCH","DELETE"]
+  }))
 
 const port = process.env.PORT || 3000
 app.use(express.json())
