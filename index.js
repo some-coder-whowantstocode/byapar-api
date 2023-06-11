@@ -14,9 +14,8 @@ const connect = require('./db/connect')
 const port = process.env.PORT || 3000
 app.use(express.json())
 
-
-app.use('/byapar/api/v1/',authenticate,router)
 app.use('/byapar/api/v1/user/',userrouter)
+app.use('/byapar/api/v1/',authenticate,router)
 
 app.get('/',(req,res)=>{
     res.send('hi')
