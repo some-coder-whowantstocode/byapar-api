@@ -4,7 +4,7 @@ const Products = require('../model/model')
 const createproduct = async(req,res)=>{
 
    const {name,description,price,image} = req.body
-   
+   console.log(req.body)
   
    if(!name){
    throw new Badrequest('Please provide name.',400)
