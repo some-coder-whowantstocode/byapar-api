@@ -5,6 +5,7 @@ const {Badrequest} = require('../customerr/badrequest')
 const authenticate = async(req,res,next)=>{
 
     const authheader = req.headers.authorization
+    console.log(authheader)
     if(!authheader || !authheader.startsWith('Bearer')){
         throw new Error('Authontication failed')
     }
