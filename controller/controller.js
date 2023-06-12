@@ -4,13 +4,24 @@ const Products = require('../model/model')
 const createproduct = async(req,res)=>{
 
    const {name,description,price,image} = req.body
-   if(!name || !description || !price ||!image){
-   throw new Badrequest('Please provide name,description and price of the item.',400)
+   
+  
+   if(!name){
+   throw new Badrequest('Please provide name.',400)
+   }
+   if(!description){
+    throw new Badrequest('Please provide description.',400)
+    }
+    if(!price){
+        throw new Badrequest('Please provide price.',400)
+        }
+   if(!image){
+    throw new Badrequest('Please provide image.',400)
    }
 
    const createdby = req.user.userId
 //    console.log(req.user)
-   const product = await Products.create({name,description,price,createdby})
+   const product = await Products.create({name,description,price,image,createdby})
     res.status(201).json(product)
 
 }
