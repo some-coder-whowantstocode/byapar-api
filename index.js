@@ -6,6 +6,7 @@ const authenticate = require('./middleware/authentication')
 require('dotenv').config()
 const router = require('./routes/route')
 const userrouter = require('./routes/userroute')
+const cartrouter = require('./routes/cartroute')
 const errorhandler = require('./middleware/errhandler')
 const connect = require('./db/connect')
 
@@ -19,6 +20,7 @@ app.use(express.json())
 
 app.use('/byapar/api/v1/user/',userrouter)
 app.use('/byapar/api/v1/',authenticate,router)
+app.use('/byapar/api/v1/',authenticate,cartrouter)
 
 app.get('/',(req,res)=>{
     res.send('hi')

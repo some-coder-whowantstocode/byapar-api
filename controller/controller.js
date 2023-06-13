@@ -4,7 +4,7 @@ const Products = require('../model/model')
 const createproduct = async(req,res)=>{
 
    const {name,description,price,image} = req.body
-   console.log(req.body)
+//    console.log(req.body)
   
    if(!name){
    throw new Badrequest('Please provide name.',400)
@@ -57,7 +57,7 @@ const deleteproduct = async(req,res)=>{
 
 const getbycreater =async(req,res)=>{
     const id = req.user.userId
-    console.log(id)
+    // console.log(id)
     const products = await Products.find({createdby:id})
     res.status(200).json(products)
 
