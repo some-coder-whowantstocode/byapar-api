@@ -13,7 +13,7 @@ router.get('/getallproducts',getallproducts)
 router.post('/addproduct',createproduct)
 router.delete('/deleteproduct/:id',deleteproduct)
 router.patch('/updateproduct/:id',updateproduct)
-router.get('/getbycreater/:id',getbycreater)
+router.get('/getbycreater',getbycreater)
 
 
 module.exports=router

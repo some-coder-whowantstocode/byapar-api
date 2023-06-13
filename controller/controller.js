@@ -56,7 +56,7 @@ const deleteproduct = async(req,res)=>{
 }
 
 const getbycreater =async(req,res)=>{
-    const {id} = req.params
+    const {id} = req.user.userId
 
     const products = await Products.find({_id:id})
     res.status(200).json(products)
