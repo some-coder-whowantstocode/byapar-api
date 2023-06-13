@@ -55,9 +55,18 @@ const deleteproduct = async(req,res)=>{
     res.status(200).json(product)
 }
 
+const getbycreater =async(req,res)=>{
+    const {id} = req.params
+
+    const products = await Products.find({_id:id})
+    res.status(200).json(products)
+
+}
+
 module.exports = {
     getallproducts,
     createproduct,
     deleteproduct,
-    updateproduct
+    updateproduct,
+    getbycreater
 }
