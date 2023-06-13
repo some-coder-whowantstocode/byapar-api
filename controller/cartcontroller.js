@@ -3,12 +3,12 @@ const Cart = require('../model/cartmodel')
 
 
 const addtocart = async(req,res)=>{
-    const {addedby,productid} = req.body
+    const {productid} = req.body
 
     if(!addedby || !productid){
         throw new Badrequest('please provide addedby and productid .',404)
     }
-    const cart = Cart.create({addedby,productid})
+    const cart = Cart.create({addedby:req.user.userId,productid})
 
     res.status(200).json(cart)
 }
