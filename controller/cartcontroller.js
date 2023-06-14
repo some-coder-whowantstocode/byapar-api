@@ -12,7 +12,7 @@ const addtocart = async(req,res)=>{
     if(check){
         res.status(200).json({msg:'item already exists.'})
     }else{
-        const cart = await Cart.create({addedby:req.user.userId,productid,price,name,image})
+        const cart = await Cart.create({addedby:req.user.userId,productid:productid.toString(),price,name,image})
 
         res.status(200).json(cart)
     }
