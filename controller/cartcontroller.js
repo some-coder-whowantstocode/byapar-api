@@ -8,7 +8,7 @@ const addtocart = async(req,res)=>{
     if( !productid || !price || !name || !image){
         throw new Badrequest('please provide productid,price name and image.',404)
     }
-    const check = await Cart.findOne({productid:productid})
+    const check = await Cart.findOne({productid:productid,addedby:req.user.userId})
     if(check){
         res.status(200).json({msg:'item already exists.'})
     }else{
