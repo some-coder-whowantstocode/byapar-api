@@ -48,9 +48,11 @@ const updateproduct = async(req,res)=>{
 
 
 const deleteproduct = async(req,res)=>{
-    const {id} = req.params
+    // const {id} = req.params
+    const {id} = req.body
+    console.log(req.body)
     const p = await Products.findById({_id:id})
-    console.log(id)
+    // console.log()
     // const objectId =await new mongoose.Types.ObjectId(id);
     // console.log(objectId)
     if(!p){
