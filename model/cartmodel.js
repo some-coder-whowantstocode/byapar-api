@@ -8,7 +8,7 @@ const cartschema = new mongoose.Schema({
         required:[true,'user not provided.']
     },
     productid:{
-        type:ObjectId,
+        type:String,
         required:[true,'product not specified.']
     },
     name:{
