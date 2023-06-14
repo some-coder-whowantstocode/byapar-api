@@ -10,6 +10,18 @@ const cartschema = new mongoose.Schema({
     productid:{
         type:ObjectId,
         required:[true,'product not specified.']
+    },
+    name:{
+        type:String,
+        required:[true,'name not specified.']
+    },
+    price:{
+        type:Number,
+        required:[true,'price not specified.']
+    },
+    image:{
+        type:String,
+        required:[true,'image not specified.']
     }
 })
 
