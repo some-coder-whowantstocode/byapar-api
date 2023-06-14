@@ -50,7 +50,9 @@ const updateproduct = async(req,res)=>{
 const deleteproduct = async(req,res)=>{
     const {id} = req.params
     const p = await Products.findById({_id:id})
+    console.log(id)
     const objectId =await new mongoose.Types.ObjectId(id);
+    console.log(objectId)
     if(!p){
         throw new Badrequest('Item does not exist.',400)
     }
