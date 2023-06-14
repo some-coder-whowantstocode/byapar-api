@@ -28,7 +28,7 @@ const getfromcart = async(req,res)=>{
 
 const removefromcart = async(req,res)=>{
     const {_id} = req.body
-    if(!productid){
+    if(!_id){
         throw new Badrequest('please provide productid.',400)
     }
     const c = Cart.find({_id:_id})
