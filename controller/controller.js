@@ -48,18 +48,19 @@ const updateproduct = async(req,res)=>{
 
 
 const deleteproduct = async(req,res)=>{
-    // const {id} = req.params
-    const {productid} = req.body
+   
+    const {id} = req.body
+    if(!id){
+        throw new Badrequest('Please provide id.',400)
+    }
     console.log(req.body)
-    const p = await Products.findById({_id:productid})
-    // console.log()
-    // const objectId =await new mongoose.Types.ObjectId(id);
-    // console.log(objectId)
+    const p = await Products.findById({_id:id})
+   
     if(!p){
         throw new Badrequest('Item does not exist.',400)
     }
-    const product = await Products.findByIdAndDelete({_id:productid})
-    const cart = await Cart.findByIdAndDelete({productid:productid})
+    const product = await Products.findByIdAndDelete({_id:id})
+    const cart = await Cart.findByIdAndDelete({productid:id})
     res.status(200).json(product)
 }
 

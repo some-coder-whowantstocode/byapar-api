@@ -11,7 +11,7 @@ const {
 
 router.get('/getallproducts',getallproducts)
 router.post('/addproduct',createproduct)
-router.delete('/deleteproduct/',deleteproduct)
+router.post('/deleteproduct/',deleteproduct)
 router.patch('/updateproduct/:id',updateproduct)
 router.get('/getbycreater',getbycreater)
 
