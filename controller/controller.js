@@ -60,7 +60,7 @@ const deleteproduct = async(req,res)=>{
         throw new Badrequest('Item does not exist.',400)
     }
     const product = await Products.findByIdAndDelete({_id:id})
-    const cart = await Cart.findByIdAndDelete({productid:id})
+    const cart = await Cart.findOneAndDelete({productid:id})
     res.status(200).json(product)
 }
 
