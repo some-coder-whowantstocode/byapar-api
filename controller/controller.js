@@ -36,7 +36,7 @@ const searchproduct = async(req,res)=>{
                 obj[field] = {[operator]:Number(value)}
             }
         })
-       let result = await Products.find(obj)
+       const result = await Products.find(obj)
     }
 
     res.status(200).json(result)
