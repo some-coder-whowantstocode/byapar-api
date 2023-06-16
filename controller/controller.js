@@ -12,8 +12,8 @@ const searchproduct = async(req,res)=>{
     if(ptype){
         obj.ptype = ptype
     }
-    // let result = await Products.find(obj)
-
+    let result = await Products.find(obj)
+    
 
     if(numericalfilters){
         const operatormap = {
@@ -36,7 +36,7 @@ const searchproduct = async(req,res)=>{
                 obj[field] = {[operator]:Number(value)}
             }
         })
-       const result = await Products.find(obj)
+       result =  result.find(obj)
     }
 
     res.status(200).json(result)
