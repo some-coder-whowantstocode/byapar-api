@@ -3,9 +3,49 @@ const Cart = require('../model/cartmodel')
 const Products = require('../model/model')
 
 
+const searchproduct = async(req,res)=>{
+    const {name,price,rating,ptype,numericalfilters} =req.query
+    const obj ={}
+    if(name){
+        obj.name = {$regex:name,$options:'i'}
+    }
+    if(ptype){
+        obj.ptype = ptype
+    }
+    // let result = await Products.find(obj)
+
+
+    if(numericalfilters){
+        const operatormap = {
+            '>':'$gt',
+            '>=':'$gte',
+            '=':'$eq',
+            '<':'$lt',
+            '<=':'$lte',
+        }
+        const regEx =  /\b(<|>|>=|<=|=)/g
+        
+        let filters = numericalfilters.replace(
+            regEx,
+            (match)=>`-${operatormap[match]}-`
+        )
+        const options = ['price','rating']
+        filters = filters.split(',').forEach((item)=>{
+            const [field,operator,value] = item.split('-')
+            if(options.includes(field)){
+                obj[field] = {[operator]:Number(value)}
+            }
+        })
+       let result = await Products.find(obj)
+    }
+
+    res.status(200).json(result)
+}
+
+
 const createproduct = async(req,res)=>{
 
-   const {name,description,price,image} = req.body
+   const {name,description,price,image,rating,createdat,ptype} = req.body
 //    console.log(req.body)
   
    if(!name){
@@ -20,10 +60,13 @@ const createproduct = async(req,res)=>{
    if(!image){
     throw new Badrequest('Please provide image.',400)
    }
+   if(!ptype){
+    throw new Badrequest('please provide ptype.',400)
+   }
 
    const createdby = req.user.userId
 //    console.log(req.user)
-   const product = await Products.create({name,description,price,image,createdby})
+   const product = await Products.create({name,description,price,image,createdby,rating,createdat,ptype})
     res.status(201).json(product)
 
 }
@@ -77,5 +120,6 @@ module.exports = {
     createproduct,
     deleteproduct,
     updateproduct,
-    getbycreater
+    getbycreater,
+    searchproduct
 }

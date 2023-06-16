@@ -20,8 +20,24 @@ const productschema = new mongoose.Schema({
         type:String,
         required:[true,'looks like some error occured.']
     },
+    ptype:{
+        type:String,
+        enum:{
+            values:['MEN,WOMEN,CHILDREN,FOOD'],
+            message:'{value}  is not supported'
+        },
+        required:[true,'Ptype is required e.g MEN,FOOD etc.']
+    },
     image:{
         type:String
+    },
+    createdat:{
+        type:Date,
+        default:Date.now()
+    },
+    rating:{
+        type:Number,
+        default:0
     }
 })
 
