@@ -23,7 +23,7 @@ const productschema = new mongoose.Schema({
     ptype:{
         type:String,
         enum:{
-            values:['MEN,WOMEN,CHILDREN,FOOD'],
+            values:['MEN','WOMEN','CHILDREN','FOOD'],
             message:'{value}  is not supported'
         },
         required:[true,'Ptype is required e.g MEN,FOOD etc.']
