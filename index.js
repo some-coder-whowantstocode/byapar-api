@@ -54,7 +54,7 @@ const start =async(url)=>{
 start(process.env.connecturl)
 
 const storage = new GridFsStorage({
-    url : url,
+    url : process.env.connecturl,
     file:(req,file) =>{
         return new Promise((resolve,reject)=>{
             crypto.randomBytes(16,(err,buf)=>{
