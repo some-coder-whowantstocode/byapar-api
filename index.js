@@ -97,6 +97,4 @@ app.use(errorhandler)
 start(process.env.connecturl)
 
 
-module.exports = {
-    gfs
-}
+module.exports = gfs 
