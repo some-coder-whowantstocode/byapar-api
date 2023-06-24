@@ -67,6 +67,7 @@ const start =async(url)=>{
         console.log(error)
     }
 }
+start(process.env.connecturl)
 
 app.use('/byapar/api/v1/user/',userrouter)
 app.use('/byapar/api/v1/',authenticate,upload.single('file'),router)
@@ -81,4 +82,3 @@ app.get('/',(req,res)=>{
 
 app.use(errorhandler)
 
-start(process.env.connecturl)
