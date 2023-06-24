@@ -8,7 +8,7 @@ const router = require('./routes/route');
 const userrouter = require('./routes/userroute');
 const cartrouter = require('./routes/cartroute');
 const errorhandler = require('./middleware/errhandler');
-const connect = require('./db/connect');
+const {connect} = require('./db/connect');
 const multer = require('multer');
 const Grid = require('gridfs-stream');
 const path = require('path');
@@ -25,11 +25,10 @@ app.use(cors({
 const port = process.env.PORT || 3000
 app.use(express.json())
 
-let conn;
 
 const start =async(url)=>{
     try{
-       conn = await connect(url)
+      const conn = await connect(url)
    
     //   create storage
 
