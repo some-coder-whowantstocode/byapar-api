@@ -63,7 +63,8 @@ const createproduct = async (req, res) => {
     if (!ptype) {
       throw new Badrequest("please provide ptype.", 400);
     }
-  
+
+    console.log(gfs)
     const readstream = gfs.createReadStream({ filename: file.filename });
     let fileData = Buffer.from([]);
     readstream.on("data", (chunk) => {

@@ -46,11 +46,10 @@ const start =async(url)=>{
 
 const conn = mongoose.createConnection(process.env.connecturl);
 
-
-let gfs ;
+let gfs;
 conn.once('open',()=>{
   //init stream
-  gfs = Grid(conn.db,mongoose.mongo);
+ gfs = Grid(conn.db,mongoose.mongo);
   gfs.collection('uploads');
 })
 
