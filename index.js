@@ -28,18 +28,10 @@ app.use(express.json())
 
 const start =async(url)=>{
     try{
-      const conn = await connect(url)
+       await connect(url)
    
     //   create storage
 
-
-    let gfs ;
-    conn.once('open',()=>{
-      //init stream
-      gfs = Grid(conn.db,mongoose.mongo);
-      gfs.collection('uploads');
-    })
-    
      
 
         app.listen(port,console.log(`App is listning at ${port}......`))
@@ -50,7 +42,17 @@ const start =async(url)=>{
     }
 }
 
-start(process.env.connecturl)
+
+const conn = mongoose.createConnection(mongoURI);
+
+
+let gfs ;
+conn.once('open',()=>{
+  //init stream
+  gfs = Grid(conn.db,mongoose.mongo);
+  gfs.collection('uploads');
+})
+
 
 const storage = new GridFsStorage({
     url : process.env.connecturl,
@@ -72,6 +74,9 @@ const storage = new GridFsStorage({
   })
   
 
+
+
+
 const upload = multer({storage})
 
 
@@ -88,3 +93,4 @@ app.get('/',(req,res)=>{
 
 app.use(errorhandler)
 
+start(process.env.connecturl)
