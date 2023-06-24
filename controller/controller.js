@@ -67,6 +67,7 @@ const createproduct = async(req,res)=>{
 
    const createdby = req.user.userId
 //    console.log(req.user)
+console.log(req.file)
    const product = await Products.create({name,description,price,image:file,createdby,rating,createdat,ptype})
     res.status(201).json(product)
 
