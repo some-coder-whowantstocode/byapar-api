@@ -44,39 +44,47 @@ const searchproduct = async(req,res)=>{
 }
 
 
-const createproduct = async(req,res)=>{
-
-   const {name,description,price,rating,createdat,ptype} = req.body
-   const file = req.file
-//    console.log(req.body)
-
+const createproduct = async (req, res) => {
+    const { name, description, price, rating, createdat, ptype } = req.body;
+    const file = req.file;
   
-   if(!name){
-   throw new Badrequest('Please provide name.',400)
-   }
-   if(!description){
-    throw new Badrequest('Please provide description.',400)
+    if (!name) {
+      throw new Badrequest("Please provide name.", 400);
     }
-    if(!price){
-        throw new Badrequest('Please provide price.',400)
-        }
-   if(!file){
-    throw new Badrequest('Please provide image.',400)
-   }
-   if(!ptype){
-    throw new Badrequest('please provide ptype.',400)
-   }
-console.log(req.file)
-console.log(file.path)
-   const fileData = fs.readFileSync(file.path);
-
-   const createdby = req.user.userId
-//    console.log(req.user)
-   const product = await Products.create({name,description,price,image:fileData,createdby,rating,createdat,ptype})
-    res.status(201).json(product)
-
-}
-
+    if (!description) {
+      throw new Badrequest("Please provide description.", 400);
+    }
+    if (!price) {
+      throw new Badrequest("Please provide price.", 400);
+    }
+    if (!file) {
+      throw new Badrequest("Please provide image.", 400);
+    }
+    if (!ptype) {
+      throw new Badrequest("please provide ptype.", 400);
+    }
+  
+    const readstream = gfs.createReadStream({ filename: file.filename });
+    let fileData = Buffer.from([]);
+    readstream.on("data", (chunk) => {
+      fileData = Buffer.concat([fileData, chunk]);
+    });
+    readstream.on("end", async () => {
+      const createdby = req.user.userId;
+      const product = await Products.create({
+        name,
+        description,
+        price,
+        image: fileData,
+        createdby,
+        rating,
+        createdat,
+        ptype,
+      });
+      res.status(201).json(product);
+    });
+  };
+  
 const getallproducts = async(req,res)=>{
     const products = await Products.find()
     if(products.length == 0){
