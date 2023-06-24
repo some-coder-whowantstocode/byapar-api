@@ -25,9 +25,11 @@ app.use(cors({
 const port = process.env.PORT || 3000
 app.use(express.json())
 
+let conn;
+
 const start =async(url)=>{
     try{
-      const conn = await connect(url)
+       conn = await connect(url)
    
     //   create storage
 
@@ -41,6 +43,10 @@ const start =async(url)=>{
         console.log(error)
     }
 }
+
+start(process.env.connecturl)
+
+
 let gfs ;
 conn.once('open',()=>{
   //init stream
@@ -82,5 +88,4 @@ app.get('/',(req,res)=>{
 
 
 app.use(errorhandler)
-start(process.env.connecturl)
 
