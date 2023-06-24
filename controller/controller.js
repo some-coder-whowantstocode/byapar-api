@@ -48,6 +48,7 @@ const createproduct = async(req,res)=>{
    const {name,description,price,rating,createdat,ptype} = req.body
    const file = req.file
 //    console.log(req.body)
+
   
    if(!name){
    throw new Badrequest('Please provide name.',400)
@@ -64,11 +65,12 @@ const createproduct = async(req,res)=>{
    if(!ptype){
     throw new Badrequest('please provide ptype.',400)
    }
+   const fileData = fs.readFileSync(file.path);
 
    const createdby = req.user.userId
 //    console.log(req.user)
 console.log(req.file)
-   const product = await Products.create({name,description,price,image:file,createdby,rating,createdat,ptype})
+   const product = await Products.create({name,description,price,image:fileData,createdby,rating,createdat,ptype})
     res.status(201).json(product)
 
 }
