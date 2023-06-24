@@ -55,6 +55,7 @@ conn.once('open',()=>{
 })
 
 
+
 const storage = new GridFsStorage({
     url : process.env.connecturl,
     file:(req,file) =>{
@@ -95,3 +96,8 @@ app.get('/',(req,res)=>{
 app.use(errorhandler)
 
 start(process.env.connecturl)
+
+
+module.exports = {
+    gfs
+}

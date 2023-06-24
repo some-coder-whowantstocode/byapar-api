@@ -1,7 +1,7 @@
 const { Badrequest } = require('../customerr/badrequest')
 const Cart = require('../model/cartmodel')
 const Products = require('../model/model')
-const fs = require("fs");
+const gfs = require('../index');
 
 
 const searchproduct = async(req,res)=>{
