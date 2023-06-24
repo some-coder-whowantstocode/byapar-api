@@ -67,7 +67,7 @@ const createproduct = async(req,res)=>{
     throw new Badrequest('please provide ptype.',400)
    }
 console.log(req.file)
-
+console.log(file.path)
    const fileData = fs.readFileSync(file.path);
 
    const createdby = req.user.userId
