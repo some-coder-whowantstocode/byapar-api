@@ -45,7 +45,7 @@ const searchproduct = async(req,res)=>{
 
 const createproduct = async(req,res)=>{
 
-   const {name,description,price,image,rating,createdat,ptype} = req.body
+   const {name,description,price,file,rating,createdat,ptype} = req.body
 //    console.log(req.body)
   
    if(!name){
@@ -57,7 +57,7 @@ const createproduct = async(req,res)=>{
     if(!price){
         throw new Badrequest('Please provide price.',400)
         }
-   if(!image){
+   if(!file){
     throw new Badrequest('Please provide image.',400)
    }
    if(!ptype){
@@ -66,7 +66,7 @@ const createproduct = async(req,res)=>{
 
    const createdby = req.user.userId
 //    console.log(req.user)
-   const product = await Products.create({name,description,price,image,createdby,rating,createdat,ptype})
+   const product = await Products.create({name,description,price,image:file,createdby,rating,createdat,ptype})
     res.status(201).json(product)
 
 }

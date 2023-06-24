@@ -29,7 +29,8 @@ const productschema = new mongoose.Schema({
         required:[true,'Ptype is required e.g MEN,FOOD etc.']
     },
     image:{
-        type:String
+        type:Buffer,
+        contentType:String
     },
     createdat:{
         type:Date,
