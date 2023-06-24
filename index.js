@@ -28,32 +28,7 @@ app.use(express.json())
 const start =async(url)=>{
     try{
       const conn = await connect(url)
-      let gfs ;
-      conn.once('open',()=>{
-        //init stream
-        gfs = Grid(conn.db,mongoose.mongo);
-        gfs.collection('uploads');
-      })
-
-      const storage = new GridFsStorage({
-        url : url,
-        file:(req,file) =>{
-            return new Promise((resolve,reject)=>{
-                crypto.randomBytes(16,(err,buf)=>{
-                    if(err){
-                        return reject(err);
-                    }
-                    const filename = buf.toString('hex') + path.extname(file.originalname);
-                    const fileinfo = {
-                        filename:filename,
-                        bucketName:'uploads'
-                    };
-                    resolve(filename);
-                });
-            });
-        }
-      })
-
+   
     //   create storage
 
 
@@ -66,6 +41,32 @@ const start =async(url)=>{
         console.log(error)
     }
 }
+let gfs ;
+conn.once('open',()=>{
+  //init stream
+  gfs = Grid(conn.db,mongoose.mongo);
+  gfs.collection('uploads');
+})
+
+const storage = new GridFsStorage({
+  url : url,
+  file:(req,file) =>{
+      return new Promise((resolve,reject)=>{
+          crypto.randomBytes(16,(err,buf)=>{
+              if(err){
+                  return reject(err);
+              }
+              const filename = buf.toString('hex') + path.extname(file.originalname);
+              const fileinfo = {
+                  filename:filename,
+                  bucketName:'uploads'
+              };
+              resolve(filename);
+          });
+      });
+  }
+})
+
 const upload = multer({storage})
 
 
