@@ -45,7 +45,8 @@ const searchproduct = async(req,res)=>{
 
 const createproduct = async(req,res)=>{
 
-   const {name,description,price,file,rating,createdat,ptype} = req.body
+   const {name,description,price,rating,createdat,ptype} = req.body
+   const file = req.file
 //    console.log(req.body)
   
    if(!name){
