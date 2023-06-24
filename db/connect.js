@@ -7,4 +7,4 @@ const connect =(url)=>{
     })
 }
 
-module.exports ={ connect}
+module.exports ={connect}
