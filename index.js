@@ -41,25 +41,6 @@ const start =async(url)=>{
       gfs.collection('uploads');
     })
     
-    const storage = new GridFsStorage({
-      url : url,
-      file:(req,file) =>{
-          return new Promise((resolve,reject)=>{
-              crypto.randomBytes(16,(err,buf)=>{
-                  if(err){
-                      return reject(err);
-                  }
-                  const filename = buf.toString('hex') + path.extname(file.originalname);
-                  const fileinfo = {
-                      filename:filename,
-                      bucketName:'uploads'
-                  };
-                  resolve(filename);
-              });
-          });
-      }
-    })
-    
      
 
         app.listen(port,console.log(`App is listning at ${port}......`))
@@ -72,6 +53,25 @@ const start =async(url)=>{
 
 start(process.env.connecturl)
 
+const storage = new GridFsStorage({
+    url : url,
+    file:(req,file) =>{
+        return new Promise((resolve,reject)=>{
+            crypto.randomBytes(16,(err,buf)=>{
+                if(err){
+                    return reject(err);
+                }
+                const filename = buf.toString('hex') + path.extname(file.originalname);
+                const fileinfo = {
+                    filename:filename,
+                    bucketName:'uploads'
+                };
+                resolve(filename);
+            });
+        });
+    }
+  })
+  
 
 const upload = multer({storage})
 
