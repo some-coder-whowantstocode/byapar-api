@@ -43,7 +43,7 @@ const start =async(url)=>{
 }
 
 
-const conn = mongoose.createConnection(mongoURI);
+const conn = mongoose.createConnection(process.env.connecturl);
 
 
 let gfs ;
