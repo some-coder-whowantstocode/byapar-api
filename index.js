@@ -10,13 +10,13 @@ const cartrouter = require('./routes/cartroute');
 const errorhandler = require('./middleware/errhandler');
 const {connect} = require('./db/connect');
 const multer = require('multer');
-const Grid = require('gridfs-stream');
 const path = require('path');
 const {GridFsStorage} = require('multer-gridfs-storage')
 const methodoverride = require('method-override');
-const { default: mongoose } = require('mongoose');
-const { rejects } = require('assert');
-const crypto =require('crypto')
+const mongoose = require('mongoose');
+const crypto =require('crypto');
+const eventemmiter = require('events');
+const myemmiter = new eventemmiter();
 
 app.use(cors({
     origin: process.env.baseurl,
@@ -29,13 +29,19 @@ app.use(express.json())
 
 const start =async(url)=>{
     try{
-       await connect(url)
+       await connect(url);
+       
+    const conn = mongoose.createConnection(process.env.connecturl);
    
-    //   create storage
+    conn.once('open',()=>{
+        global.gfsBucket = new mongoose.mongo.GridFSBucket(conn.db);
+        myemmiter.emit('change')
+    });
+    myemmiter.on('change',()=>{
+    // console.log(global.gfsBucket)
 
-     
-
-        app.listen(port,console.log(`App is listning at ${port}......`))
+    })
+        app.listen(port,console.log(`App is listning at ${port}......`));
 
 
     }catch(error){
@@ -44,14 +50,8 @@ const start =async(url)=>{
 }
 
 
-const conn = mongoose.createConnection(process.env.connecturl);
 
-let gfs;
-conn.once('open',()=>{
-  //init stream
- gfs = Grid(conn.db,mongoose.mongo);
-  gfs.collection('uploads');
-})
+
 
 
 
@@ -79,7 +79,7 @@ const storage = new GridFsStorage({
 
 
 const upload = multer({storage})
-
+// console.log(upload)
 
 app.use('/byapar/api/v1/user/',userrouter)
 app.use('/byapar/api/v1/',authenticate,upload.single('file'),router)
@@ -95,6 +95,3 @@ app.get('/',(req,res)=>{
 app.use(errorhandler)
 
 start(process.env.connecturl)
-
-
-module.exports = gfs 

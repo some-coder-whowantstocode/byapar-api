@@ -19,9 +19,9 @@ const cartschema = new mongoose.Schema({
         type:Number,
         required:[true,'price not specified.']
     },
-    image:{
+    location:{
         type:String,
-        required:[true,'image not specified.']
+        required:[true,'please provide location.']
     }
 })
 

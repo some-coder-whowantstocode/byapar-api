@@ -1,8 +1,6 @@
 const { Badrequest } = require('../customerr/badrequest')
 const Cart = require('../model/cartmodel')
 const Products = require('../model/model')
-const {gfs} = require('../index');
-
 
 const searchproduct = async(req,res)=>{
     const {name,price,rating,ptype,numericalfilters} =req.query
@@ -63,9 +61,11 @@ const createproduct = async (req, res) => {
     if (!ptype) {
       throw new Badrequest("please provide ptype.", 400);
     }
-
-    console.log(gfs)
-    const readstream = gfs.createReadStream({ filename: file.filename });
+  
+    if (!global.gfsBucket) {
+        throw new Error('global.gfsBucket is not initialized');
+      }
+    const readstream = global.gfsBucket.openDownloadStreamByName(file.filename);
     let fileData = Buffer.from([]);
     readstream.on("data", (chunk) => {
       fileData = Buffer.concat([fileData, chunk]);

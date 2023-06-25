@@ -3,16 +3,16 @@ const Cart = require('../model/cartmodel')
 
 
 const addtocart = async(req,res)=>{
-    const {productid,price,name,image} = req.body
+    const {productid,price,name,location} = req.body
 
-    if( !productid || !price || !name || !image){
-        throw new Badrequest('please provide productid,price name and image.',404)
+    if( !productid || !price || !name || !location){
+        throw new Badrequest('please provide productid,price name and location.',404)
     }
     const check = await Cart.findOne({productid:productid,addedby:req.user.userId})
     if(check){
         res.status(200).json({msg:'item already exists.'})
     }else{
-        const cart = await Cart.create({addedby:req.user.userId,productid,price,name,image})
+        const cart = await Cart.create({addedby:req.user.userId,productid,price,name,location})
 
         res.status(200).json(cart)
     }
