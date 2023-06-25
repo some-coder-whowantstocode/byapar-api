@@ -14,7 +14,7 @@ router.get('/getallproducts',getallproducts)
 router.post('/addproduct',createproduct)
 router.post('/deleteproduct/',deleteproduct)
 router.patch('/updateproduct/:id',updateproduct)
-router.get('/getbycreater/:id',getbycreater)
+router.get('/getbycreater',getbycreater)
 router.get('/search?',searchproduct)
 
 
