@@ -17,6 +17,12 @@ const mongoose = require('mongoose');
 const crypto =require('crypto');
 const eventemmiter = require('events');
 const myemmiter = new eventemmiter();
+const bodyParser = require('body-parser');
+
+
+
+app.use(bodyParser.json({ limit: '1mb' }));
+
 
 app.use(cors({
     origin: process.env.baseurl,

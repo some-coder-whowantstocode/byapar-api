@@ -104,6 +104,15 @@ const updateproduct = async(req,res)=>{
     res.status(200).json(product)
 }
 
+const getoneproduct = async(req,res)=>{
+  const {id} = req.params;
+  const p = await Products.findById({_id:id.slice(1,id.length)});
+  if(!p){
+    throw new Badrequest("Item does not exist.",400)
+  }
+  res.status(200).json(p)
+}
+
 
 const deleteproduct = async(req,res)=>{
    
@@ -136,5 +145,6 @@ module.exports = {
     deleteproduct,
     updateproduct,
     getbycreater,
-    searchproduct
+    searchproduct,
+    getoneproduct
 }

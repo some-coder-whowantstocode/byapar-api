@@ -7,7 +7,8 @@ const {
     deleteproduct,
     updateproduct,
     getbycreater,
-    searchproduct
+    searchproduct,
+    getoneproduct
 } = require('../controller/controller')
 
 router.get('/getallproducts',getallproducts)
@@ -16,6 +17,7 @@ router.post('/deleteproduct/',deleteproduct)
 router.patch('/updateproduct/:id',updateproduct)
 router.get('/getbycreater',getbycreater)
 router.get('/search?',searchproduct)
+router.get('/getoneproduct/:id',getoneproduct)
 
 
 module.exports=router
