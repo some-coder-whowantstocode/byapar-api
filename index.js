@@ -7,6 +7,7 @@ require('dotenv').config();
 const router = require('./routes/route');
 const userrouter = require('./routes/userroute');
 const cartrouter = require('./routes/cartroute');
+const reviewrouter = require('./routes/reviewroute');
 const errorhandler = require('./middleware/errhandler');
 const {connect} = require('./db/connect');
 const multer = require('multer');
@@ -90,6 +91,7 @@ const upload = multer({storage})
 app.use('/byapar/api/v1/user/',userrouter)
 app.use('/byapar/api/v1/',authenticate,upload.single('file'),router)
 app.use('/byapar/api/v1/',authenticate,cartrouter)
+app.use('/byapar/api/v1/',authenticate,reviewrouter)
 
 app.get('/',(req,res)=>{
     res.send('hi')

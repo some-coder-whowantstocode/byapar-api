@@ -39,17 +39,17 @@ const login = async(req,res)=>{
 
 const authcheck =async(req,res)=>{
     const {token} = req.body
-    console.log(token)
+    // console.log(token)
     if(!token || !token.startsWith('Bearer')){
         throw new Error('Authontication failed')
     }
 
 
     const toke = await token.split(' ')[1]
-    console.log(toke)
+    // console.log(toke)
    
         const payload = jwt.verify(toke,process.env.secretkey)
-        console.log(process.env.secretkey)
+        // console.log(process.env.secretkey)
         res.status(200).json({userId:payload.id,name:payload.name})
  
 }

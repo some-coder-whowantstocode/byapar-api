@@ -4,14 +4,16 @@ const Products = require('../model/model')
 
 const searchproduct = async(req,res)=>{
     const {name,price,rating,ptype,numericalfilters} =req.query
+    // console.log(req.query)
     const obj ={}
     if(name){
         obj.name = {$regex:name,$options:'i'}
     }
-    if(ptype){
+    if(ptype&&ptype!=''&&ptype!='ALL'){
+    
         obj.ptype = ptype
     }
-    let result = await Products.find(obj)
+    // let result = await Products.find(obj)
     
 
     if(numericalfilters){
@@ -30,13 +32,14 @@ const searchproduct = async(req,res)=>{
         )
         const options = ['price','rating']
         filters = filters.split(',').forEach((item)=>{
+          // console.log
             const [field,operator,value] = item.split('-')
             if(options.includes(field)){
                 obj[field] = {[operator]:Number(value)}
             }
         })
-       result =  result.find(obj)
     }
+   let result = await Products.find(obj)
 
     res.status(200).json(result)
 }
@@ -120,7 +123,7 @@ const deleteproduct = async(req,res)=>{
     if(!id){
         throw new Badrequest('Please provide id.',400)
     }
-    console.log(req.body)
+    // console.log(req.body)
     const p = await Products.findById({_id:id})
    
     if(!p){

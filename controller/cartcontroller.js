@@ -35,7 +35,7 @@ const removefromcart = async(req,res)=>{
     if(!c){
         throw new Badrequest('Item does not exist.',400)
     }
-    console.log(_id)
+    // console.log(_id)
     const cart = await Cart.findByIdAndDelete({_id:_id,addedby:req.user.userId})
     res.status(200).json(cart)
 }
