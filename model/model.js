@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const usermodel = require('./usermodel')
+const { ObjectId } = require('mongodb')
 
 const productschema = new mongoose.Schema({
     name:{
@@ -29,8 +30,7 @@ const productschema = new mongoose.Schema({
         required:[true,'Ptype is required e.g MEN,FOOD etc.']
     },
     image:{
-        type:Buffer,
-        contentType:String
+        type:String
     },
     createdat:{
         type:Date,
@@ -39,6 +39,10 @@ const productschema = new mongoose.Schema({
     rating:{
         type:Number,
         default:0
+    },
+    gridid:{
+        type:ObjectId,
+        required:[true,'please provide gridid']
     }
 })
 

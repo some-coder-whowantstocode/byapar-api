@@ -21,8 +21,7 @@ const myemmiter = new eventemmiter();
 const bodyParser = require('body-parser');
 
 
-
-app.use(bodyParser.json({ limit: '1mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
 
 
 app.use(cors({
@@ -38,16 +37,7 @@ const start =async(url)=>{
     try{
        await connect(url);
        
-    const conn = mongoose.createConnection(process.env.connecturl);
-   
-    conn.once('open',()=>{
-        global.gfsBucket = new mongoose.mongo.GridFSBucket(conn.db);
-        myemmiter.emit('change')
-    });
-    myemmiter.on('change',()=>{
-    // console.log(global.gfsBucket)
-
-    })
+  
         app.listen(port,console.log(`App is listning at ${port}......`));
 
 
@@ -62,34 +52,10 @@ const start =async(url)=>{
 
 
 
-const storage = new GridFsStorage({
-    url : process.env.connecturl,
-    file:(req,file) =>{
-        return new Promise((resolve,reject)=>{
-            crypto.randomBytes(16,(err,buf)=>{
-                if(err){
-                    return reject(err);
-                }
-                const filename = buf.toString('hex') + path.extname(file.originalname);
-                const fileinfo = {
-                    filename:filename,
-                    bucketName:'uploads'
-                };
-                resolve(filename);
-            });
-        });
-    }
-  })
-  
-
-
-
-
-const upload = multer({storage})
 // console.log(upload)
 
 app.use('/byapar/api/v1/user/',userrouter)
-app.use('/byapar/api/v1/',authenticate,upload.single('file'),router)
+app.use('/byapar/api/v1/',authenticate,router)
 app.use('/byapar/api/v1/',authenticate,cartrouter)
 app.use('/byapar/api/v1/',authenticate,reviewrouter)
 

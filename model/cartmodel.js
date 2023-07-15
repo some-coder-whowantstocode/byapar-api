@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb')
 const mongoose = require('mongoose')
 
 
@@ -7,7 +8,7 @@ const cartschema = new mongoose.Schema({
         required:[true,'user not provided.']
     },
     productid:{
-        type:String,
+        type:ObjectId,
         required:[true,'product not specified.']
     },
     name:{
@@ -17,6 +18,10 @@ const cartschema = new mongoose.Schema({
     price:{
         type:Number,
         required:[true,'price not specified.']
+    },
+    gridid:{
+        type:ObjectId,
+        required:[true,'gridid is required.']
     }
 })
 
