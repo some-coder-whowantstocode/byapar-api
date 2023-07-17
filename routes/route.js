@@ -8,7 +8,8 @@ const {
     updateproduct,
     getbycreater,
     searchproduct,
-    getoneproduct
+    getoneproduct,
+    paymentcontroller
 } = require('../controller/controller')
 
 router.get('/getallproducts',getallproducts)
@@ -18,6 +19,6 @@ router.patch('/updateproduct/:id',updateproduct)
 router.get('/getbycreater',getbycreater)
 router.get('/search?',searchproduct)
 router.get('/getoneproduct/:id',getoneproduct)
-
+router.post('/payment/payu',paymentcontroller)
 
 module.exports=router

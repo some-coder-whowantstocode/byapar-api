@@ -7,6 +7,8 @@ const { stringmodifier } = require('../utility/stringmodifier');
 const { uploadbase64stringtogridfs } = require('../utility/uploadtogrid');
 const { getfromgrid } = require('../utility/getfromgrid');
 const Review= require('../model/reviewmodel');
+const ordermodel = require('../model/ordermodel');
+const crypto = require('crypto')
 
 const uri = process.env.connecturl;
 const dbname = 'productimages';
@@ -185,6 +187,59 @@ const getbycreater =async(req,res)=>{
 
 }
 
+
+
+function generateHash(params, salt) {
+  let hashString = params["key"] + "|" + params["txnid"] + "|" + params["amount"] + "|" + params["productinfo"] + "|" + params["firstname"] + "|" + params["email"] + "||||||" + salt;
+
+  // Generate the hash
+  const hash = sha512(hashString);
+
+  return hash;
+}
+
+
+function sha512(str) {
+  return crypto.createHash("sha512").update(str).digest("hex");
+}
+
+
+const paymentcontroller =async(req,res)=>{
+  const {phone,amount,productinfo,firstname,email} = req.body;
+  // console.log(req.body)
+
+  if(!phone||!amount||!productinfo||!firstname||!email){
+    throw new Badrequest('please add phone,amount,productinfo,firstname,email',400)
+  }
+
+  const params = {
+    "key": process.env.merchantkey,
+    "txnid": process.env.txnid + Date.now(),
+    "amount": amount,
+    "productinfo": productinfo,
+    "firstname": firstname,
+    "email": email,
+    "phone": phone,
+    "surl": process.env.surl,
+    "furl": process.env.furl,
+  };
+
+  const hash = generateHash(params, process.env.merchantsalt);
+  params["hash"] = hash;
+
+  const encodedParams = new URLSearchParams(params).toString();
+
+  const url = process.env.apiendpoint + "?" + encodedParams;
+
+  // console.log(url);
+
+  res.status(200).json({url:url})
+  
+}
+
+
+
+
 module.exports = {
     getallproducts,
     createproduct,
@@ -192,5 +247,6 @@ module.exports = {
     updateproduct,
     getbycreater,
     searchproduct,
-    getoneproduct
+    getoneproduct,
+    paymentcontroller
 }
